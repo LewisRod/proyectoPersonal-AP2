@@ -52,15 +52,17 @@ export const login = async (req, res, next) => {
 
     console.log("LOGIN ACTUALIZADO: devolviendo token y usuario");
 
-    res.json({
-      token,
-      usuario: {
-        id: usuario.id,
-        nombre: usuario.nombre,
-        email: usuario.email,
-        rol: usuario.rol,
-      },
-    });
+console.log("LOGIN ACTUALIZADO: devolviendo token y usuario");
+
+res.json({
+  token,
+  usuario: {
+    id: usuario.id,
+    nombre: usuario.nombre,
+    email: usuario.email,
+    rol: usuario.rol,
+  },
+});
   } catch (err) {
     next(err);
   }
