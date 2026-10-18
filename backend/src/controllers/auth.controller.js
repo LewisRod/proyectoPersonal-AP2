@@ -50,6 +50,7 @@ export const login = async (req, res, next) => {
       { expiresIn: "24h" },
     );
 
+    console.log("LOGIN ACTUALIZADO: devolviendo token y usuario");
 
     res.json({
       token,
