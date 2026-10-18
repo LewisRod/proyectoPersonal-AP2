@@ -49,7 +49,17 @@ export const login = async (req, res, next) => {
       process.env.JWT_SECRET,
       { expiresIn: "24h" },
     );
-    res.json({ token });
+
+
+    res.json({
+      token,
+      usuario: {
+        id: usuario.id,
+        nombre: usuario.nombre,
+        email: usuario.email,
+        rol: usuario.rol,
+      },
+    });
   } catch (err) {
     next(err);
   }
