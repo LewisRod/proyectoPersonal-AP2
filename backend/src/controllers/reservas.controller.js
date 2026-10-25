@@ -1,6 +1,6 @@
 import prisma from "../db.js";
 
-
+//para las reservas de servicios de los clientes
 export const crearReserva = async (req, res) => {
   try {
     const { servicioId, fecha, hora } = req.body;
@@ -86,6 +86,8 @@ export const listarReservas = async (req, res) => {
 
 
 
+
+
 export const cambiarEstadoReserva = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
@@ -112,6 +114,8 @@ export const cambiarEstadoReserva = async (req, res) => {
     });
   }
 };
+
+
 
 
 

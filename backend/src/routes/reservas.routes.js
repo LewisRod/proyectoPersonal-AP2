@@ -12,3 +12,6 @@ router.put("/:id/estado", authMiddleware, esAdmin, cambiarEstadoReserva)
 router.delete("/:id", authMiddleware, cancelarReserva)
 
 export default router
+
+
+//ruts admin

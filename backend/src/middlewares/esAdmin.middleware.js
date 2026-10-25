@@ -4,3 +4,6 @@ export const esAdmin = async (req, res, next) => {
     }
     next()
 }
+
+
+//si es admin 
