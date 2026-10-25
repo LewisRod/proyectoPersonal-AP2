@@ -34,6 +34,16 @@ export const crearReserva = async (req, res) => {
         .json({ mensaje: "no se puede reservar fecha pasada" });
     }
 
+    const reservaExistente = await prisma.reserva.findFirst({
+      where: { servicioId: idServicio, fecha: fechaReserva, hora: horaReserva,
+        estado: {not: "cancelada"}
+      }
+    })
+
+    if (reservaExistente) {
+      return res.status(409).json({ mensaje: "servicio ya reservado en ese horario, reserve en un horario diferente" })
+    }
+
     const reserva = await prisma.reserva.create({
       data: { fecha: fechaReserva, hora:horaReserva, usuarioId, servicioId: idServicio },
     });
@@ -42,7 +52,7 @@ export const crearReserva = async (req, res) => {
   } catch (error) {
     console.error("error creando la reserva:", error);
   }
-};
+}
 
 
 
