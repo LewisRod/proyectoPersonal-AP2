@@ -16,3 +16,5 @@ app.use("reservas",reservasRouter)
 app.listen(3000, () => {
   console.log("tamo en el puerto 3000")
 })
+
+//se arreglo
