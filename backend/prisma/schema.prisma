@@ -33,7 +33,7 @@ model Servicio {
 model Reserva {
 id Int @id @default(autoincrement())
 fecha DateTime @default(now())
-hora Int 
+hora String
 estado String @default("pendiente")
 usuarioId  Int
 usuario Usuario @relation(references: [id],fields: [usuarioId])

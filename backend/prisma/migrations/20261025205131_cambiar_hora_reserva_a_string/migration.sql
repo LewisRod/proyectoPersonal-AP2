@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Reserva" ALTER COLUMN "hora" SET DATA TYPE TEXT;

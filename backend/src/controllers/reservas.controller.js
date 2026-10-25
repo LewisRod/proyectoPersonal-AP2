@@ -1,17 +1,21 @@
 import prisma from "../db.js";
 
-//para las reservas de servicios de los clientes
+
 export const crearReserva = async (req, res) => {
   try {
     const { servicioId, fecha, hora } = req.body;
     const usuarioId = req.usuario.id;
     const idServicio = parseInt(servicioId);
-    const horaReserva = parseInt(hora);
+
 
     if (!servicioId || !fecha || !hora) {
       return res
         .status(400)
         .json({ mensaje: "debes poner el id de servicio, la fecha y la hora" });
+    }
+
+    if (!/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(hora)) {
+      return res.status(400).json({ mensaje: " el formato de la hora es: HH:mm, por ejemplo 11:30" })
     }
 
     if (idServicio <= 0) {
@@ -35,7 +39,7 @@ export const crearReserva = async (req, res) => {
     }
 
     const reservaExistente = await prisma.reserva.findFirst({
-      where: { servicioId: idServicio, fecha: fechaReserva, hora: horaReserva,
+      where: { servicioId: idServicio, fecha: fechaReserva, hora,
         estado: {not: "cancelada"}
       }
     })
@@ -45,8 +49,8 @@ export const crearReserva = async (req, res) => {
     }
 
     const reserva = await prisma.reserva.create({
-      data: { fecha: fechaReserva, hora:horaReserva, usuarioId, servicioId: idServicio },
-    });
+      data: { fecha: fechaReserva, hora, usuarioId, servicioId: idServicio },
+    })
 
     return res.status(201).json({ mensaje: "reserva creada", reserva });
   } catch (error) {
