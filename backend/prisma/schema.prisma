@@ -18,6 +18,7 @@ model Usuario {
   email    String @unique
   password String
   rol      String @default("cliente")
+  reserva Reserva[]
 }
 
 model Servicio {
@@ -26,4 +27,16 @@ model Servicio {
   descripcion String
   duracion    Int
   precio      Float
+  reserva Reserva[]
 } 
+
+model Reserva {
+id Int @id @default(autoincrement())
+fecha DateTime @default(now())
+hora Int 
+estado String @default("pendiente")
+usuarioId  Int
+usuario Usuario @relation(references: [id],fields: [usuarioId])
+servicioId Int
+servicio Servicio @relation(references: [id],fields: [servicioId])
+}
