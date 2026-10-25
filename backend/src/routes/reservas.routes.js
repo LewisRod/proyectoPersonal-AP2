@@ -1,4 +1,4 @@
-import Router from "expo-router"
+import Router from "express"
 import { crearReserva,misReservas,listarReservas,cambiarEstadoReserva, cancelarReserva } from "../controllers/reservas.controller.js"
 import { authMiddleware } from "../middlewares/auth.js"
 import { esAdmin } from "../middlewares/esAdmin.js"
