@@ -13,5 +13,4 @@ router.delete("/:id", authMiddleware, cancelarReserva)
 
 export default router
 
-
 //ruts admin

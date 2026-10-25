@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(loggerMiddleware)
 app.use("/auth",authRouter)
 app.use("/servicios", serviciosRouter)
-app.use("reservas",reservasRouter)
+app.use("/reservas",reservasRouter)
 
 app.listen(3000, () => {
   console.log("tamo en el puerto 3000")
