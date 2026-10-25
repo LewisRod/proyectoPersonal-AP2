@@ -1,6 +1,6 @@
 import Router from "express"
 import { crearReserva,misReservas,listarReservas,cambiarEstadoReserva, cancelarReserva } from "../controllers/reservas.controller.js"
-import { authMiddleware } from "../middlewares/auth.middleware.js"
+import { authMiddleware } from "../middlewares/esAdmin.middleware.js"
 import { esAdmin } from "../middlewares/esAdmin.js"
 
 const router = Router()
