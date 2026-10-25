@@ -6,6 +6,7 @@ export const crearReserva = async (req, res) => {
     const { servicioId, fecha, hora } = req.body;
     const usuarioId = req.usuario.id;
     const idServicio = parseInt(servicioId);
+    const horaReserva = parseInt(hora);
 
     if (!servicioId || !fecha || !hora) {
       return res
@@ -34,7 +35,7 @@ export const crearReserva = async (req, res) => {
     }
 
     const reserva = await prisma.reserva.create({
-      data: { fecha: fechaReserva, hora, usuarioId, servicioId: idServicio },
+      data: { fecha: fechaReserva, hora:horaReserva, usuarioId, servicioId: idServicio },
     });
 
     return res.status(201).json({ mensaje: "reserva creada", reserva });
