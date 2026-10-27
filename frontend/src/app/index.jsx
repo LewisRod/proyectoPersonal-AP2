@@ -3,7 +3,6 @@ import { router } from "expo-router"
 import { useState,useEffect } from "react";
 import { obtenerToken, obtenerUsuario } from "../serviciosBackend/authStorage.js"
 import { ActivityIndicator } from "react-native"
-import Splash from "./splash.jsx"
 
 
 const SERVICIOS_IMAGEN = require("../../assets/images/rcasa.png");
@@ -11,12 +10,6 @@ const SERVICIOS_IMAGEN = require("../../assets/images/rcasa.png");
 export default function Index() {
 
   const [comprobandoSesion, setComprobandoSesion] = useState(true)
-  const [mostrarSplash, setMostrarSplash] = useState(true)
-  
-  console.log("Splash:", mostrarSplash);
-  console.log("Comprobando sesión:", comprobandoSesion);
-  console.log("INDEX SE ESTA EJECUTANDO");
-
   
   useEffect(() => {
     const comprobarSesion = async () => {
@@ -37,10 +30,13 @@ export default function Index() {
     comprobarSesion()
   }, [])
 
-if (mostrarSplash || comprobandoSesion) {
-  return <Splash onFinish={() => setMostrarSplash(false)} />
+if (comprobandoSesion) {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="large" color="#75452F" />
+    </View>
+  );
 }
-
   
   
   
@@ -245,7 +241,7 @@ const styles = StyleSheet.create({
     color: "#28231F",
     fontSize: 26,
     lineHeight: 41,
-    fontWeight: "800",
+    fontWeight: "700",
     letterSpacing: -1.5,
   },
 

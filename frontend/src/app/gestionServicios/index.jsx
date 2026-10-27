@@ -69,7 +69,7 @@ export default function HomeServicios() {
         </Text>
 
         <Text style={styles.titulo}>
-          Hola, {usuario?.nombre || "bienvenido"}
+          klk {usuario?.nombre || "bienvenido"}
         </Text>
 
         <Text style={styles.descripcion}>
@@ -191,8 +191,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   titulo: {
-    fontSize: 29,
-    fontWeight: "800",
+    fontSize: 24,
+    fontWeight: "600",
     color: "#28231F",
     letterSpacing: -0.8,
   },
