@@ -56,7 +56,7 @@ export default function Servicios() {
       setError("")
 
       const usuarioGuardado = await obtenerUsuario()
-      setUsuario(usuarioGuardado);
+      setUsuario(usuarioGuardado)
 
      
       const datos = await listarServicios()
@@ -69,7 +69,7 @@ export default function Servicios() {
   }
 
   const cerrarSesion = () => {
-    Alert.alert("Cerrar sesion", "seguro de cerrar sesion?", [
+    Alert.alert("cerrar sesion","seguro de cerrar sesion?", [
       {
         text: "Cancelar", style: "cancel"
       },
@@ -182,7 +182,7 @@ export default function Servicios() {
         />
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({

@@ -1,27 +1,19 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Animated,
-  StatusBar,
-  Pressable,
-} from "react-native";
+import { useEffect, useRef, useState } from "react"
+import {  View, Text, Image, StyleSheet, Animated, StatusBar, Pressable } from "react-native"
 
-const IMAGEN_CASITA = require("../../assets/images/rcasa.png");
+const IMAGEN_CASITA = require("../../assets/images/rcasa.png")
 
 export default function Splash({ onFinish }) {
-  const opacidad = useRef(new Animated.Value(0)).current;
-  const escala = useRef(new Animated.Value(0.92)).current;
-  const movimientoY = useRef(new Animated.Value(35)).current;
-  const progreso = useRef(new Animated.Value(0)).current;
-  const opacidadMarca = useRef(new Animated.Value(0)).current;
-  const movimientoMulti = useRef(new Animated.Value(-35)).current;
-  const movimientoServicios = useRef(new Animated.Value(35)).current;
-  const escalaMarca = useRef(new Animated.Value(0.85)).current;
+  const opacidad = useRef(new Animated.Value(0)).current
+  const escala = useRef(new Animated.Value(0.92)).current
+  const movimientoY = useRef(new Animated.Value(35)).current
+  const progreso = useRef(new Animated.Value(0)).current
+  const opacidadMarca = useRef(new Animated.Value(0)).current
+  const movimientoMulti = useRef(new Animated.Value(-35)).current
+  const movimientoServicios = useRef(new Animated.Value(35)).current
+  const escalaMarca = useRef(new Animated.Value(0.85)).current
 
-  const [cargaCompleta, setCargaCompleta] = useState(false);
+  const [cargaCompleta, setCargaCompleta] = useState(false)
 
   useEffect(() => {
     Animated.sequence([
@@ -76,9 +68,9 @@ export default function Splash({ onFinish }) {
       }),
     ]).start(({ finished }) => {
       if (finished) {
-        setCargaCompleta(true);
+        setCargaCompleta(true)
       }
-    });
+    })
   }, [
     opacidad,
     escala,
@@ -93,7 +85,7 @@ export default function Splash({ onFinish }) {
   const anchoBarra = progreso.interpolate({
     inputRange: [0, 1],
     outputRange: ["0%", "100%"],
-  });
+  })
 
   return (
     <View style={styles.contenedor}>
@@ -274,4 +266,4 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     fontFamily: "Plus Jakarta Sans"
   },
-});
+})

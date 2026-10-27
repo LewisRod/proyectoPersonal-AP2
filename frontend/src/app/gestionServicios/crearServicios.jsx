@@ -14,8 +14,8 @@ export default function CrearServicios() {
 
   const handleCrearServicio = async () => {
 
-    const duracionNumero = Number(duracion);
-    const precioNumero = Number(precio);
+    const duracionNumero = Number(duracion)
+    const precioNumero = Number(precio)
 
     if (
       !Number(duracionNumero) ||
@@ -27,7 +27,7 @@ export default function CrearServicios() {
     }
 
     try {
-      setCargando(true);
+      setCargando(true)
 
       await crearServicio({
         nombre: nombre,
@@ -36,14 +36,14 @@ export default function CrearServicios() {
         precio: precioNumero,
       })
 
-Alert.alert("Servicio creado", "servicio creado correctamente.", [
+Alert.alert("sevicio creado", "servicio creado correctamente", [
   { text: "Continuar", onPress: () => router.replace("/gestionServicios/servicios") }
 ])
       
     } catch (error) {
-        "error al crear servicio, intente de nuevo";
+        "error al crear servicio intente de nuevo";
     } finally {
-      setCargando(false);
+      setCargando(false)
     }
   }
 

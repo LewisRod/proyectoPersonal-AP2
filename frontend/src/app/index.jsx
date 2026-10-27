@@ -5,13 +5,15 @@ import { obtenerToken, obtenerUsuario } from "../serviciosBackend/authStorage.js
 import { ActivityIndicator } from "react-native"
 
 
-const SERVICIOS_IMAGEN = require("../../assets/images/rcasa.png");
+const SERVICIOS_IMAGEN = require("../../assets/images/rcasa.png")
 
 export default function Index() {
 
   const [comprobandoSesion, setComprobandoSesion] = useState(true)
   
-  useEffect(() => {
+
+  
+  useEffect(() => { //para verificar si hay una sesion activa
     const comprobarSesion = async () => {
       try {
         const token = await obtenerToken()
@@ -23,19 +25,21 @@ export default function Index() {
       } catch (error) {
         console.error("no se pudo comprobar la sesion:", error)
       } finally {
-        setComprobandoSesion(false);
+        setComprobandoSesion(false)
       }
     }
 
     comprobarSesion()
   }, [])
 
+
+
 if (comprobandoSesion) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <ActivityIndicator size="large" color="#75452F" />
     </View>
-  );
+  )
 }
   
   
@@ -315,4 +319,4 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     marginTop: 20,
   },
-});
+})

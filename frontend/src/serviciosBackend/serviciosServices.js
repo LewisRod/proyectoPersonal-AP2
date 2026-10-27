@@ -1,4 +1,4 @@
-import api from "./api.js";
+import api from "./api.js"
 
 export const listarServicios = async () => {
   const respuesta = await api.get("/servicios")

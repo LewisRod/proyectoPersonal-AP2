@@ -31,11 +31,14 @@ export default function MisReservas() {
     }
   }, [])
 
+  
+
   useFocusEffect(
     useCallback(() => {
       cargarReservas()
     }, [cargarReservas]),
   )
+
 
   const confirmarCancelacion = (reserva) => {
     Alert.alert(
@@ -47,13 +50,15 @@ export default function MisReservas() {
           style: "cancel",
         },
         {
-          text: "Sí, cancelar",
+          text: "si, cancelalo",
           style: "destructive",
           onPress: () => ejecutarCancelacion(reserva.id),
         }
       ]
     )
   }
+
+
 
   const ejecutarCancelacion = async (id) => {
     try {
@@ -71,11 +76,12 @@ export default function MisReservas() {
     }
   }
 
+
   const formatearFecha = (fecha) => {
     const fechaLocal = new Date(fecha);
 
     if (Number.isNaN(fechaLocal.getTime())) {
-      return "Fecha no disponible";
+      return "fecha no disponible"
     }
 
     return fechaLocal.toLocaleDateString("es-DO", {
@@ -85,6 +91,7 @@ export default function MisReservas() {
       timeZone: "UTC",
     })
   }
+
 
   const obtenerEstado = (estado) => {
     switch (estado) {

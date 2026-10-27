@@ -32,11 +32,15 @@ export default function GestionarReservas() {
     }
   }, [])
 
+
+
   useFocusEffect(
     useCallback(() => {
       cargarReservas()
     }, [cargarReservas]),
   )
+
+
 
   const actualizarEstado = (reserva, nuevoEstado) => {
     const accion = nuevoEstado === "completada" ? "marcar como completada" : "cancelar"
@@ -53,6 +57,8 @@ export default function GestionarReservas() {
       ]
     )
   }
+
+
 
   const ejecutarCambioEstado = async (id, estado) => {
     try {
@@ -77,6 +83,8 @@ export default function GestionarReservas() {
       setProcesandoId(null)
     }
   }
+
+  
 
   const formatearFecha = (fecha) => {
     const valor = new Date(fecha)
