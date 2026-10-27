@@ -49,6 +49,7 @@ export const actualizarServicio = async (req, res) => {
   res.status(201).json(servicio);
 };
 
+
 export const eliminarServicio = async (req, res) => {
     const id = parseInt(req.params.id);
 

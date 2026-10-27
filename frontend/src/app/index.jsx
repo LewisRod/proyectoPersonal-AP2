@@ -6,7 +6,7 @@ import { ActivityIndicator } from "react-native"
 import Splash from "./splash.jsx"
 
 
-const SERVICIOS_IMAGEN ="https://aarp.widen.net/content/3nfbdvsugv/jpeg/78740_AARPtoolbox2.jpg?crop=true&anchor=1,0&q=80&color=ffffffff&u=ucxnmh&w=2047&h=1176";
+const SERVICIOS_IMAGEN = require("../../assets/images/rcasa.png");
 
 export default function Index() {
 
@@ -46,7 +46,6 @@ if (mostrarSplash || comprobandoSesion) {
   
   return (
     <SafeAreaView style={styles.safeArea}>
-
       <View style={styles.container}>
         <View style={styles.header}>
           <View>
@@ -58,10 +57,10 @@ if (mostrarSplash || comprobandoSesion) {
 
         <View style={styles.hero}>
           <ImageBackground
-            source={{ uri: SERVICIOS_IMAGEN }}
+            source={SERVICIOS_IMAGEN}
             style={styles.heroImage}
-            imageStyle={styles.heroImageRadius}
-            resizeMode="cover"
+
+            resizeMode="contain"
           >
             <View style={styles.imageBadge}>
               <View style={styles.statusDot} />
@@ -69,7 +68,6 @@ if (mostrarSplash || comprobandoSesion) {
             </View>
           </ImageBackground>
         </View>
-        
 
         <View style={styles.content}>
           <Text style={styles.title}>
@@ -80,9 +78,6 @@ if (mostrarSplash || comprobandoSesion) {
           <Text style={styles.description}>
             Atiende las necesidades de todo tu hogar con nosotros
           </Text>
-
-          
-
 
           <View style={styles.actions}>
             <Pressable
@@ -113,7 +108,7 @@ if (mostrarSplash || comprobandoSesion) {
         </View>
       </View>
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -175,7 +170,7 @@ const styles = StyleSheet.create({
     minHeight: 210,
     maxHeight: 290,
     borderRadius: 24,
-    backgroundColor: "#E6D7C7",
+    backgroundColor: "#e4d1bd",
     shadowColor: "#60442E",
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.14,
@@ -324,4 +319,4 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     marginTop: 20,
   },
-})
+});
