@@ -43,7 +43,7 @@ export const actualizarServicio = async (req, res) => {
 
   const servicio = await prisma.servicio.update({
     where: { id },
-    data: { nombre, descripcion, duracion, precio },
+    data: { nombre, descripcion, duracion, precio,activo },
   });
 
   res.status(201).json(servicio);
