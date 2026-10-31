@@ -36,9 +36,9 @@ export default function CrearServicios() {
         precio: precioNumero,
       })
 
-Alert.alert("sevicio creado", "servicio creado correctamente", [
-  { text: "Continuar", onPress: () => router.replace("/gestionServicios/servicios") }
-])
+      Alert.alert("sevicio creado", "servicio creado correctamente", [
+      { text: "Continuar", onPress: () => router.replace("/gestionServicios/servicios") }
+      ])
       
     } catch (error) {
         "error al crear servicio intente de nuevo";

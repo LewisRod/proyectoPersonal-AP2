@@ -1,19 +1,28 @@
-import { useEffect, useRef, useState } from "react"
-import {  View, Text, Image, StyleSheet, Animated, StatusBar, Pressable } from "react-native"
+import { useEffect, useRef, useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Animated,
+  StatusBar,
+  Pressable,
+} from "react-native";
 
-const IMAGEN_CASITA = require("../../assets/images/rcasa.png")
+const IMAGEN_CASITA = require("../../assets/images/rcasa.png");
 
 export default function Splash({ onFinish }) {
-  const opacidad = useRef(new Animated.Value(0)).current
-  const escala = useRef(new Animated.Value(0.92)).current
-  const movimientoY = useRef(new Animated.Value(35)).current
-  const progreso = useRef(new Animated.Value(0)).current
-  const opacidadMarca = useRef(new Animated.Value(0)).current
-  const movimientoMulti = useRef(new Animated.Value(-35)).current
-  const movimientoServicios = useRef(new Animated.Value(35)).current
-  const escalaMarca = useRef(new Animated.Value(0.85)).current
+  const opacidad = useRef(new Animated.Value(0)).current;
+  const escala = useRef(new Animated.Value(0.92)).current;
+  const movimientoY = useRef(new Animated.Value(35)).current;
+  const progreso = useRef(new Animated.Value(0)).current;
+  const opacidadMarca = useRef(new Animated.Value(0)).current;
+  const opacidadBoton = useRef(new Animated.Value(1)).current;
+  const movimientoMulti = useRef(new Animated.Value(-35)).current;
+  const movimientoServicios = useRef(new Animated.Value(35)).current;
+  const escalaMarca = useRef(new Animated.Value(0.85)).current;
 
-  const [cargaCompleta, setCargaCompleta] = useState(false)
+  const [cargaCompleta, setCargaCompleta] = useState(false);
 
   useEffect(() => {
     Animated.sequence([
@@ -68,9 +77,9 @@ export default function Splash({ onFinish }) {
       }),
     ]).start(({ finished }) => {
       if (finished) {
-        setCargaCompleta(true)
+        setCargaCompleta(true);
       }
-    })
+    });
   }, [
     opacidad,
     escala,
@@ -82,10 +91,35 @@ export default function Splash({ onFinish }) {
     escalaMarca,
   ])
 
+  useEffect(() => {
+    if (!cargaCompleta) return;
+
+    const animacionBoton = Animated.loop(
+      Animated.sequence([
+        Animated.timing(opacidadBoton, {
+          toValue: 0.2,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacidadBoton, {
+          toValue: 1,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+
+    animacionBoton.start();
+
+    return () => {
+      animacionBoton.stop();
+    };
+  }, [cargaCompleta, opacidadBoton]);
+
   const anchoBarra = progreso.interpolate({
     inputRange: [0, 1],
     outputRange: ["0%", "100%"],
-  })
+  });
 
   return (
     <View style={styles.contenedor}>
@@ -146,7 +180,7 @@ export default function Splash({ onFinish }) {
 
         {cargaCompleta ? (
           <Animated.View
-            style={[styles.botonContenedor, { opacity: opacidadMarca }]}
+            style={[styles.botonContenedor, { opacity: opacidadBoton }]}
           >
             <Pressable
               accessibilityRole="button"
@@ -264,6 +298,6 @@ const styles = StyleSheet.create({
     color: "#75452F",
     fontSize: 14,
     fontWeight: "400",
-    fontFamily: "Plus Jakarta Sans"
+    fontFamily: "Plus Jakarta Sans",
   },
-})
+});

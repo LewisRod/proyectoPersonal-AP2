@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, ImageBackground, SafeAreaView } from "react-native"
+import { View, Text, StyleSheet, Pressable, Image, SafeAreaView } from "react-native"
 import { router } from "expo-router"
 import { useState,useEffect } from "react";
 import { obtenerToken, obtenerUsuario } from "../serviciosBackend/authStorage.js"
@@ -55,18 +55,20 @@ if (comprobandoSesion) {
           </View>
         </View>
 
-        <View style={styles.hero}>
-          <ImageBackground
+        <View style={[styles.hero, styles.heroImage, styles.heroImageRadius]}>
+          <Image
             source={SERVICIOS_IMAGEN}
-            style={styles.heroImage}
-
+            style={[
+              StyleSheet.absoluteFillObject,
+              { width: "100%", height: "100%" },
+            ]}
             resizeMode="contain"
-          >
-            <View style={styles.imageBadge}>
-              <View style={styles.statusDot} />
-              <Text style={styles.imageBadgeText}>Manten tu casa clean</Text>
-            </View>
-          </ImageBackground>
+          />
+
+          <View style={styles.imageBadge}>
+            <View style={styles.statusDot} />
+            <Text style={styles.imageBadgeText}>manten tu casa clean</Text>
+          </View>
         </View>
 
         <View style={styles.content}>
@@ -180,8 +182,9 @@ const styles = StyleSheet.create({
 
   heroImage: {
     flex: 1,
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     padding: 16,
+    overflow: "hidden",
   },
 
   heroImageRadius: {
@@ -319,4 +322,4 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     marginTop: 20,
   },
-})
+});
