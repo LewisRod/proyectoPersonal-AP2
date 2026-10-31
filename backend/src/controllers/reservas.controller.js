@@ -15,7 +15,7 @@ export const crearReserva = async (req, res) => {
     }
 
     if (!/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(hora)) {
-      return res.status(400).json({ mensaje: " el formato de la hora es: HH:mm, por ejemplo 11:30" })
+      return res.status(400).json({ mensaje: " el formato de la hora es: HH:mm" })
     }
 
     if (idServicio <= 0) {
@@ -28,6 +28,10 @@ export const crearReserva = async (req, res) => {
 
     if (!servicio) {
       return res.status(404).json({ mensaje: "servicio no encontrado" });
+    }
+
+    if (!servicio.activo) {
+      return res.status(400).json({mensaje: "el servicio no esta disponible para reservas"})
     }
 
     const fechaReserva = new Date(fecha);
@@ -47,6 +51,7 @@ export const crearReserva = async (req, res) => {
     if (reservaExistente) {
       return res.status(409).json({ mensaje: "servicio ya reservado en ese horario, reserve en un horario diferente" })
     }
+
 
     const reserva = await prisma.reserva.create({
       data: { fecha: fechaReserva, hora, usuarioId, servicioId: idServicio },

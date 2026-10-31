@@ -1,0 +1,69 @@
+Capa 3 — Notificaciones, Perfil y Validaciones de Negocio
+1. Plan de trabajo
+Dividiremos la entrega en tres partes.
+
+
+
+Parte 1 — Backend
+Pendiente
+
+Validaciones de negocio para reservas
+- Validar que la fecha sea futura.
+- Comprobar que el servicio exista y esté activo.
+- Evitar reservas activas duplicadas del mismo usuario para el mismo servicio y fecha.
+- Retornar los códigos HTTP y mensajes de error correspondientes.
+
+
+
+
+
+
+Parte 2 — Perfil
+Pendiente
+
+Backend
+- PUT /usuarios/perfil
+- Proteger la ruta con JWT.
+- Actualizar el nombre del usuario autenticado.
+- Retornar el usuario sin contraseña.
+Frontend
+- Crear pantalla de perfil.
+- Mostrar nombre y email.
+- Permitir editar y guardar el nombre.
+- Cerrar sesión y eliminar el token de AsyncStorage.
+
+
+
+
+
+
+
+Parte 3 — Notificaciones
+Pendiente
+
+Expo Notifications
+- Solicitar permisos al iniciar la aplicación.
+- Programar recordatorio 24 horas antes de la reserva.
+- Incluir el nombre del servicio.
+- Cancelar la notificación al cancelar la reserva.
+- No programar recordatorios si faltan menos de 24 horas.
+
+
+
+
+
+
+
+
+
+2. Orden en el que trabajaremos
+Seguiremos nuestra metodología habitual:
+Orden	Trabajo	Prueba
+1	Backend: validaciones de reservas	Postman
+2	Backend: perfil de usuario	Postman
+3	Frontend: pantalla de perfil	Simulador iOS
+4	Frontend: cierre de sesión	Simulador iOS
+5	Instalar y configurar Expo Notifications	Simulador iOS
+6	Programar notificaciones al reservar	Prueba funcional
+7	Cancelar notificaciones al cancelar reservas	Prueba funcional
+8	Prueba integral de la aplicación	Backend + móvil
