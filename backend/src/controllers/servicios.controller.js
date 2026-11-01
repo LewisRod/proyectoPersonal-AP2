@@ -34,7 +34,7 @@ export const actualizarServicio = async (req, res) => {
 
   const id = parseInt(req.params.id)
 
-  const { nombre, descripcion, duracion, precio,  activo } = req.body; //arreglado aca
+  const { nombre, descripcion, duracion, precio,  activo } = req.body; //arreglado acaaaaaa
 
   if (req.usuario.rol != "admin") {
     return res
