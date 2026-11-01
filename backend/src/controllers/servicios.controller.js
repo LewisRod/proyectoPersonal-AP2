@@ -32,8 +32,9 @@ export const listarServicio = async (req, res) => {
 
 export const actualizarServicio = async (req, res) => {
 
-  const id = parseInt(req.params.id);
-  const { nombre, descripcion, duracion, precio,activo } = req.body;
+  const id = parseInt(req.params.id)
+
+  const { nombre, descripcion, duracion, precio,  activo } = req.body; //arreglado aca
 
   if (req.usuario.rol != "admin") {
     return res
