@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { View, Text, TextInput, Button, StyleSheet, Alert, ActivityIndicator, ScrollView } from "react-native"
+import { View, Text, TextInput, Button, StyleSheet, Alert, ActivityIndicator, ScrollView,Switch } from "react-native"
 import { router, useLocalSearchParams } from "expo-router"
 import {listarServicios,actualizarServicio} from "../../serviciosBackend/serviciosServices.js"
 
@@ -12,7 +12,7 @@ export default function EditarServicio() {
   const [precio, setPrecio] = useState("")
   const [cargando, setCargando] = useState(true)
   const [guardando, setGuardando] = useState(false)
-
+  const [activo, setActivo] = useState(true);
 
   useEffect(() => {
     cargarServicio()
@@ -36,6 +36,7 @@ export default function EditarServicio() {
       setDescripcion(servicio.descripcion)
       setDuracion(String(servicio.duracion))
       setPrecio(String(servicio.precio))
+      setActivo(servicio.activo)
 
     } catch (error) {
       "error cargando el servicio"
@@ -64,6 +65,7 @@ export default function EditarServicio() {
         descripcion: descripcion,
         duracion: duracionNumero,
         precio: precioNumero,
+        activo
       })
 
       Alert.alert(
@@ -134,7 +136,32 @@ export default function EditarServicio() {
         editable={!guardando}
       />
 
-      {guardando ? ( <ActivityIndicator size="large" />) : ( <Button title="Guardar cambios" onPress={handleActualizar} />)}
+      <View style={styles.filaEstado}>
+        <View>
+          <Text style={styles.etiqueta}>Estado del servicio</Text>
+
+          <Text style={styles.textoEstado}>
+            {activo ? "Activo" : "Inactivo"}
+          </Text>
+        </View>
+
+        <Switch
+          value={activo}
+          onValueChange={setActivo}
+          disabled={guardando}
+          trackColor={{
+            false: "#D9D3CD",
+            true: "#A5C99B",
+          }}
+          thumbColor={activo ? "#347A38" : "#888888"}
+        />
+      </View>
+
+      {guardando ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <Button title="Guardar cambios" onPress={handleActualizar} />
+      )}
 
       <View style={styles.botonVolver}>
         <Button
@@ -145,7 +172,7 @@ export default function EditarServicio() {
         />
       </View>
     </ScrollView>
-  )
+  );
 }
 
 

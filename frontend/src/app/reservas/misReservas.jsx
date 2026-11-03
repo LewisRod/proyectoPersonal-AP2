@@ -1,44 +1,55 @@
-import { useCallback, useState } from "react"
-import { View, Text, StyleSheet, ScrollView, Pressable, ActivityIndicator, Alert, RefreshControl } from "react-native"
-import { useFocusEffect, router } from "expo-router"
-import { listarMisReservas,  cancelarReserva } from "../../serviciosBackend/reservasServices.js"
+import { useCallback, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  ActivityIndicator,
+  Alert,
+  RefreshControl,
+} from "react-native";
+import { useFocusEffect, router } from "expo-router";
+import {
+  listarMisReservas,
+  cancelarReserva,
+} from "../../serviciosBackend/reservasServices.js";
+import { cancelarNotificacionReserva } from "../../serviciosBackend/notificacionesServices.js";
+
 
 export default function MisReservas() {
-  const [reservas, setReservas] = useState([])
-  const [cargando, setCargando] = useState(true)
-  const [actualizando, setActualizando] = useState(false)
-  const [cancelandoId, setCancelandoId] = useState(null)
-  const [error, setError] = useState("")
+  const [reservas, setReservas] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [actualizando, setActualizando] = useState(false);
+  const [cancelandoId, setCancelandoId] = useState(null);
+  const [error, setError] = useState("");
 
   const cargarReservas = useCallback(async (refrescar = false) => {
     if (refrescar) {
-      setActualizando(true)
+      setActualizando(true);
     } else {
-      setCargando(true)
+      setCargando(true);
     }
 
-    setError("")
+    setError("");
 
     try {
       const datos = await listarMisReservas();
-      setReservas(Array.isArray(datos) ? datos : [])
+      setReservas(Array.isArray(datos) ? datos : []);
     } catch (err) {
-      console.error("error cargando reservas:", err)
-      setError("no se pudo cargar reservas, intente de nuevo")
+      console.error("error cargando reservas:", err);
+      setError("no se pudo cargar reservas, intente de nuevo");
     } finally {
-      setCargando(false)
-      setActualizando(false)
+      setCargando(false);
+      setActualizando(false);
     }
-  }, [])
-
-  
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
-      cargarReservas()
+      cargarReservas();
     }, [cargarReservas]),
-  )
-
+  );
 
   const confirmarCancelacion = (reserva) => {
     Alert.alert(
@@ -53,35 +64,35 @@ export default function MisReservas() {
           text: "si, cancelalo",
           style: "destructive",
           onPress: () => ejecutarCancelacion(reserva.id),
-        }
-      ]
-    )
-  }
-
-
+        },
+      ],
+    );
+  };
 
   const ejecutarCancelacion = async (id) => {
     try {
       setCancelandoId(id)
 
       await cancelarReserva(id)
+      await cancelarNotificacionReserva(id)
 
-      Alert.alert("Reserva cancelada");
+      Alert.alert("Reserva cancelada")
 
-      await cargarReservas(true);
+      await cargarReservas(true)
     } catch (err) {
-      console.error("error cancelando reserva:", err)
-    } finally {
-      setCancelandoId(null)
-    }
-  }
+      console.error("Error cancelando reserva:", err)
 
+      Alert.alert("error", "No se pudo cancelar la reserva, intenta otra vez");
+    } finally {
+      setCancelandoId(null);
+    }
+  };
 
   const formatearFecha = (fecha) => {
     const fechaLocal = new Date(fecha);
 
     if (Number.isNaN(fechaLocal.getTime())) {
-      return "fecha no disponible"
+      return "fecha no disponible";
     }
 
     return fechaLocal.toLocaleDateString("es-DO", {
@@ -89,22 +100,21 @@ export default function MisReservas() {
       month: "long",
       year: "numeric",
       timeZone: "UTC",
-    })
-  }
-
+    });
+  };
 
   const obtenerEstado = (estado) => {
     switch (estado) {
       case "pendiente":
-        return "Pendiente"
+        return "Pendiente";
       case "completada":
-        return "Completada"
+        return "Completada";
       case "cancelada":
-        return "Cancelada"
+        return "Cancelada";
       default:
-        return estado
+        return estado;
     }
-  }
+  };
 
   if (cargando) {
     return (
@@ -148,7 +158,7 @@ export default function MisReservas() {
           <Text style={styles.iconoVacio}>▤</Text>
           <Text style={styles.tituloVacio}>sin rerservas</Text>
           <Text style={styles.descripcionVacio}>
-             mira los servicios disponibles y reserva el que necesites
+            mira los servicios disponibles y reserva el que necesites
           </Text>
 
           <Pressable
@@ -244,7 +254,7 @@ export default function MisReservas() {
         </>
       )}
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -454,4 +464,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 10,
   },
-})
+});

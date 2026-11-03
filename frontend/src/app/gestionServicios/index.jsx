@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { View,Text, StyleSheet,Pressable, ActivityIndicator,Alert } from "react-native"
 import { router } from "expo-router"
-import { obtenerUsuario,eliminarToken} from "../../serviciosBackend/authStorage.js"
+import { obtenerUsuario, eliminarToken } from "../../serviciosBackend/authStorage.js"
+import BotonPerfil from '../../components/botonPerfil';
 
 
 
@@ -60,6 +61,7 @@ export default function HomeServicios() {
   return (
     <View style={styles.contenedor}>
       <View style={styles.encabezado}>
+        <BotonPerfil/>
         <Text style={styles.marca}>
           Multi<Text style={styles.acento}>Servicios</Text>
         </Text>

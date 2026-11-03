@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Pressable, TextInput, ScrollView, ActivityIndic
 import { router,useLocalSearchParams } from "expo-router"
 import { listarServicios } from "../../serviciosBackend/serviciosServices.js"
 import { crearReserva } from "../../serviciosBackend/reservasServices.js"
+import { programarNotificacionReserva} from "../../serviciosBackend/notificacionesServices.js";
+
 
 export default function CrearReserva() {
   const [servicios, setServicios] = useState([])
@@ -40,6 +42,7 @@ export default function CrearReserva() {
   const handleCrearReserva = async () => {
 
     const fechaSeleccionada = new Date(`${fecha}T${hora}:00`)
+    const servicio = servicios.find((item) => item.id === Number(servicioId))
 
     if (
       Number.isNaN(fechaSeleccionada.getTime()) || fechaSeleccionada <= new Date()) {
@@ -47,14 +50,33 @@ export default function CrearReserva() {
       return
     }
 
+    if (!servicio.activo) {
+      Alert.alert(
+        "Servicio no disponible",
+        "Este servicio no está disponible para nuevas reservas.",
+      );
+      return;
+    }
+
+
     try {
       setGuardando(true);
 
-      await crearReserva({
-        servicioId,
-        fecha,
-        hora,
+      const respuesta = await crearReserva({
+         servicioId,
+         fecha,
+         hora,
+      });
+
+      const servicio = servicios.find((item) => item.id === servicioId);
+
+      await programarNotificacionReserva({
+         ...respuesta.reserva,
+         fecha,
+         hora,
+         servicio,
       })
+
 
       Alert.alert("reserva creada", "tu reserva se registro bien", [
         {
@@ -64,6 +86,19 @@ export default function CrearReserva() {
       ])
 
     } catch (error) {
+      const mensaje = error.response?.data?.mensaje;
+
+  if (
+    mensaje ===
+    "servicio ya reservado en ese horario, reserve en un horario diferente"
+  ) {
+    Alert.alert(
+      "horario no disponible",
+      "Ya existe una reserva para este servicio en ese horario",
+    );
+    return;
+  }
+      
         "No se pudo crear la reserva. intente de nuevo"
       Alert.alert("error al reservar")
     } finally {

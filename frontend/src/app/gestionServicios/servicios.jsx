@@ -119,7 +119,20 @@ export default function Servicios() {
           }
           renderItem={({ item }) => (
             <View style={styles.tarjeta}>
-              <Text style={styles.nombre}>{item.nombre}</Text>
+              <View style={styles.filaEstado}>
+                <Text style={styles.nombre}>{item.nombre}</Text>
+
+                <View
+                  style={[
+                    styles.estado,
+                    item.activo ? styles.estadoActivo : styles.estadoInactivo,
+                  ]}
+                >
+                  <Text style={styles.textoEstado}>
+                    {item.activo ? "Activo" : " Inactivo"}
+                  </Text>
+                </View>
+              </View>
 
               <Text>Duracion: {item.duracion} minutos</Text>
 
@@ -182,7 +195,7 @@ export default function Servicios() {
         />
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -205,7 +218,6 @@ const styles = StyleSheet.create({
     marginBottom: 28,
   },
 
-
   titulo: {
     color: "#28231F",
     fontSize: 29,
@@ -220,7 +232,6 @@ const styles = StyleSheet.create({
     lineHeight: 21,
   },
 
-
   textoCrear: {
     color: "#FFFFFF",
     fontSize: 15,
@@ -233,7 +244,6 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 
- 
   lista: {
     paddingBottom: 28,
     flexGrow: 1,
@@ -257,6 +267,32 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "600",
   },
+  filaEstado: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+
+  estado: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 20,
+  },
+
+  estadoActivo: {
+    backgroundColor: "#DDF5E5",
+  },
+
+  estadoInactivo: {
+    backgroundColor: "#FCE5E3",
+  },
+
+  textoEstado: {
+    fontSize: 12,
+    fontWeight: "700",
+    color: "#28231F",
+  },
 
   tarjeta: {
     backgroundColor: "#FFFFFF",
@@ -265,7 +301,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#EEE5DA",
     borderRadius: 19,
-    marginTop:15
+    marginTop: 15,
   },
 
   tarjetaHeader: {
@@ -308,5 +344,5 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 20,
     marginTop: 14,
-  }
-})
+  },
+});
